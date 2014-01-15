@@ -1,0 +1,19 @@
+BEGIN.
+SSSS X.
+SSSS Y.
+SSSSS Z.
+
+PRINT "Please enter a number? ".
+READ Y.
+
+FOR(MOVE 1 TO X. X < 4. ADD 1 TO X) 
+STARTFOR.
+PRINT "Count my printouts to see how many times I loop around (",X, " times)".
+ENDFOR.
+
+MOVE 9999 TO Y.
+ADD 1 TO Y.
+ADD Y TO Z.
+PRINT X," + ",Y,"=",Z.
+
+END.

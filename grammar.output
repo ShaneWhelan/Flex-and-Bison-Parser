@@ -1,0 +1,771 @@
+Terminals unused in grammar
+
+   T_QMARK
+   T_PLUS
+   T_ASSIGNMENT
+
+
+Grammar
+
+    0 $accept: language $end
+
+    1 language: begin declarations statments end
+
+    2 declarations: /* empty */
+    3             | declarations declaration
+
+    4 declaration: T_INT T_IDENTIFIER T_FULLSTOP
+
+    5 statments: /* empty */
+    6          | statments statment
+
+    7 statment: print-statement
+    8         | read-statement
+    9         | forloop-statement
+   10         | move-statement T_FULLSTOP
+   11         | add-statement T_FULLSTOP
+
+   12 begin: T_BEGIN T_FULLSTOP
+
+   13 print-statement: T_PRINT string-statements T_IDENTIFIER T_FULLSTOP
+   14                | T_PRINT string-statements T_STRING T_FULLSTOP
+
+   15 string-statements: /* empty */
+   16                  | string-statements string-statement
+
+   17 string-statement: T_STRING T_COMMA
+   18                 | T_IDENTIFIER T_COMMA
+
+   19 read-statement: T_READ read-identifiers T_IDENTIFIER T_FULLSTOP
+
+   20 read-identifiers: /* empty */
+   21                 | read-identifiers read-identifier
+
+   22 read-identifier: T_IDENTIFIER T_COMMA
+
+   23 forloop-statement: T_FOR T_OPAREN assignment-statement T_FULLSTOP comparison-statement assignment-statement T_CPAREN startfor-statement statments endfor-statement
+
+   24 startfor-statement: T_STARTFOR T_FULLSTOP
+
+   25 endfor-statement: T_ENDFOR T_FULLSTOP
+
+   26 assignment-statement: move-statement
+   27                     | add-statement
+
+   28 move-statement: T_MOVE T_NUMBER T_TO T_IDENTIFIER
+   29               | T_MOVE T_IDENTIFIER T_TO T_IDENTIFIER
+
+   30 add-statement: T_ADD T_NUMBER T_TO T_IDENTIFIER
+   31              | T_ADD T_IDENTIFIER T_TO T_IDENTIFIER
+
+   32 comparison-statement: num-or-identifier T_LESSTHAN num-or-identifier T_FULLSTOP
+   33                     | num-or-identifier T_GREATERTHAN num-or-identifier T_FULLSTOP
+
+   34 num-or-identifier: T_IDENTIFIER
+   35                  | T_NUMBER
+
+   36 end: T_END T_FULLSTOP
+
+
+Terminals, with rules where they appear
+
+$end (0) 0
+error (256)
+T_BEGIN (258) 12
+T_END (259) 36
+T_INT (260) 4
+T_MOVE (261) 28 29
+T_ADD (262) 30 31
+T_TO (263) 28 29 30 31
+T_READ (264) 19
+T_COMMA (265) 17 18 22
+T_FULLSTOP (266) 4 10 11 12 13 14 19 23 24 25 32 33 36
+T_PRINT (267) 13 14
+T_FOR (268) 23
+T_OPAREN (269) 23
+T_CPAREN (270) 23
+T_STARTFOR (271) 24
+T_ENDFOR (272) 25
+T_LESSTHAN (273) 32
+T_GREATERTHAN (274) 33
+T_QMARK (275)
+T_PLUS (276)
+T_ASSIGNMENT (277)
+T_NUMBER (278) 28 30 35
+T_STRING (279) 14 17
+T_IDENTIFIER (280) 4 13 18 19 22 28 29 30 31 34
+
+
+Nonterminals, with rules where they appear
+
+$accept (26)
+    on left: 0
+language (27)
+    on left: 1, on right: 0
+declarations (28)
+    on left: 2 3, on right: 1 3
+declaration (29)
+    on left: 4, on right: 3
+statments (30)
+    on left: 5 6, on right: 1 6 23
+statment (31)
+    on left: 7 8 9 10 11, on right: 6
+begin (32)
+    on left: 12, on right: 1
+print-statement (33)
+    on left: 13 14, on right: 7
+string-statements (34)
+    on left: 15 16, on right: 13 14 16
+string-statement (35)
+    on left: 17 18, on right: 16
+read-statement (36)
+    on left: 19, on right: 8
+read-identifiers (37)
+    on left: 20 21, on right: 19 21
+read-identifier (38)
+    on left: 22, on right: 21
+forloop-statement (39)
+    on left: 23, on right: 9
+startfor-statement (40)
+    on left: 24, on right: 23
+endfor-statement (41)
+    on left: 25, on right: 23
+assignment-statement (42)
+    on left: 26 27, on right: 23
+move-statement (43)
+    on left: 28 29, on right: 10 26
+add-statement (44)
+    on left: 30 31, on right: 11 27
+comparison-statement (45)
+    on left: 32 33, on right: 23
+num-or-identifier (46)
+    on left: 34 35, on right: 32 33
+end (47)
+    on left: 36, on right: 1
+
+
+State 0
+
+    0 $accept: . language $end
+
+    T_BEGIN  shift, and go to state 1
+
+    language  go to state 2
+    begin     go to state 3
+
+
+State 1
+
+   12 begin: T_BEGIN . T_FULLSTOP
+
+    T_FULLSTOP  shift, and go to state 4
+
+
+State 2
+
+    0 $accept: language . $end
+
+    $end  shift, and go to state 5
+
+
+State 3
+
+    1 language: begin . declarations statments end
+
+    $default  reduce using rule 2 (declarations)
+
+    declarations  go to state 6
+
+
+State 4
+
+   12 begin: T_BEGIN T_FULLSTOP .
+
+    $default  reduce using rule 12 (begin)
+
+
+State 5
+
+    0 $accept: language $end .
+
+    $default  accept
+
+
+State 6
+
+    1 language: begin declarations . statments end
+    3 declarations: declarations . declaration
+
+    T_INT  shift, and go to state 7
+
+    $default  reduce using rule 5 (statments)
+
+    declaration  go to state 8
+    statments    go to state 9
+
+
+State 7
+
+    4 declaration: T_INT . T_IDENTIFIER T_FULLSTOP
+
+    T_IDENTIFIER  shift, and go to state 10
+
+
+State 8
+
+    3 declarations: declarations declaration .
+
+    $default  reduce using rule 3 (declarations)
+
+
+State 9
+
+    1 language: begin declarations statments . end
+    6 statments: statments . statment
+
+    T_END    shift, and go to state 11
+    T_MOVE   shift, and go to state 12
+    T_ADD    shift, and go to state 13
+    T_READ   shift, and go to state 14
+    T_PRINT  shift, and go to state 15
+    T_FOR    shift, and go to state 16
+
+    statment           go to state 17
+    print-statement    go to state 18
+    read-statement     go to state 19
+    forloop-statement  go to state 20
+    move-statement     go to state 21
+    add-statement      go to state 22
+    end                go to state 23
+
+
+State 10
+
+    4 declaration: T_INT T_IDENTIFIER . T_FULLSTOP
+
+    T_FULLSTOP  shift, and go to state 24
+
+
+State 11
+
+   36 end: T_END . T_FULLSTOP
+
+    T_FULLSTOP  shift, and go to state 25
+
+
+State 12
+
+   28 move-statement: T_MOVE . T_NUMBER T_TO T_IDENTIFIER
+   29               | T_MOVE . T_IDENTIFIER T_TO T_IDENTIFIER
+
+    T_NUMBER      shift, and go to state 26
+    T_IDENTIFIER  shift, and go to state 27
+
+
+State 13
+
+   30 add-statement: T_ADD . T_NUMBER T_TO T_IDENTIFIER
+   31              | T_ADD . T_IDENTIFIER T_TO T_IDENTIFIER
+
+    T_NUMBER      shift, and go to state 28
+    T_IDENTIFIER  shift, and go to state 29
+
+
+State 14
+
+   19 read-statement: T_READ . read-identifiers T_IDENTIFIER T_FULLSTOP
+
+    $default  reduce using rule 20 (read-identifiers)
+
+    read-identifiers  go to state 30
+
+
+State 15
+
+   13 print-statement: T_PRINT . string-statements T_IDENTIFIER T_FULLSTOP
+   14                | T_PRINT . string-statements T_STRING T_FULLSTOP
+
+    $default  reduce using rule 15 (string-statements)
+
+    string-statements  go to state 31
+
+
+State 16
+
+   23 forloop-statement: T_FOR . T_OPAREN assignment-statement T_FULLSTOP comparison-statement assignment-statement T_CPAREN startfor-statement statments endfor-statement
+
+    T_OPAREN  shift, and go to state 32
+
+
+State 17
+
+    6 statments: statments statment .
+
+    $default  reduce using rule 6 (statments)
+
+
+State 18
+
+    7 statment: print-statement .
+
+    $default  reduce using rule 7 (statment)
+
+
+State 19
+
+    8 statment: read-statement .
+
+    $default  reduce using rule 8 (statment)
+
+
+State 20
+
+    9 statment: forloop-statement .
+
+    $default  reduce using rule 9 (statment)
+
+
+State 21
+
+   10 statment: move-statement . T_FULLSTOP
+
+    T_FULLSTOP  shift, and go to state 33
+
+
+State 22
+
+   11 statment: add-statement . T_FULLSTOP
+
+    T_FULLSTOP  shift, and go to state 34
+
+
+State 23
+
+    1 language: begin declarations statments end .
+
+    $default  reduce using rule 1 (language)
+
+
+State 24
+
+    4 declaration: T_INT T_IDENTIFIER T_FULLSTOP .
+
+    $default  reduce using rule 4 (declaration)
+
+
+State 25
+
+   36 end: T_END T_FULLSTOP .
+
+    $default  reduce using rule 36 (end)
+
+
+State 26
+
+   28 move-statement: T_MOVE T_NUMBER . T_TO T_IDENTIFIER
+
+    T_TO  shift, and go to state 35
+
+
+State 27
+
+   29 move-statement: T_MOVE T_IDENTIFIER . T_TO T_IDENTIFIER
+
+    T_TO  shift, and go to state 36
+
+
+State 28
+
+   30 add-statement: T_ADD T_NUMBER . T_TO T_IDENTIFIER
+
+    T_TO  shift, and go to state 37
+
+
+State 29
+
+   31 add-statement: T_ADD T_IDENTIFIER . T_TO T_IDENTIFIER
+
+    T_TO  shift, and go to state 38
+
+
+State 30
+
+   19 read-statement: T_READ read-identifiers . T_IDENTIFIER T_FULLSTOP
+   21 read-identifiers: read-identifiers . read-identifier
+
+    T_IDENTIFIER  shift, and go to state 39
+
+    read-identifier  go to state 40
+
+
+State 31
+
+   13 print-statement: T_PRINT string-statements . T_IDENTIFIER T_FULLSTOP
+   14                | T_PRINT string-statements . T_STRING T_FULLSTOP
+   16 string-statements: string-statements . string-statement
+
+    T_STRING      shift, and go to state 41
+    T_IDENTIFIER  shift, and go to state 42
+
+    string-statement  go to state 43
+
+
+State 32
+
+   23 forloop-statement: T_FOR T_OPAREN . assignment-statement T_FULLSTOP comparison-statement assignment-statement T_CPAREN startfor-statement statments endfor-statement
+
+    T_MOVE  shift, and go to state 12
+    T_ADD   shift, and go to state 13
+
+    assignment-statement  go to state 44
+    move-statement        go to state 45
+    add-statement         go to state 46
+
+
+State 33
+
+   10 statment: move-statement T_FULLSTOP .
+
+    $default  reduce using rule 10 (statment)
+
+
+State 34
+
+   11 statment: add-statement T_FULLSTOP .
+
+    $default  reduce using rule 11 (statment)
+
+
+State 35
+
+   28 move-statement: T_MOVE T_NUMBER T_TO . T_IDENTIFIER
+
+    T_IDENTIFIER  shift, and go to state 47
+
+
+State 36
+
+   29 move-statement: T_MOVE T_IDENTIFIER T_TO . T_IDENTIFIER
+
+    T_IDENTIFIER  shift, and go to state 48
+
+
+State 37
+
+   30 add-statement: T_ADD T_NUMBER T_TO . T_IDENTIFIER
+
+    T_IDENTIFIER  shift, and go to state 49
+
+
+State 38
+
+   31 add-statement: T_ADD T_IDENTIFIER T_TO . T_IDENTIFIER
+
+    T_IDENTIFIER  shift, and go to state 50
+
+
+State 39
+
+   19 read-statement: T_READ read-identifiers T_IDENTIFIER . T_FULLSTOP
+   22 read-identifier: T_IDENTIFIER . T_COMMA
+
+    T_COMMA     shift, and go to state 51
+    T_FULLSTOP  shift, and go to state 52
+
+
+State 40
+
+   21 read-identifiers: read-identifiers read-identifier .
+
+    $default  reduce using rule 21 (read-identifiers)
+
+
+State 41
+
+   14 print-statement: T_PRINT string-statements T_STRING . T_FULLSTOP
+   17 string-statement: T_STRING . T_COMMA
+
+    T_COMMA     shift, and go to state 53
+    T_FULLSTOP  shift, and go to state 54
+
+
+State 42
+
+   13 print-statement: T_PRINT string-statements T_IDENTIFIER . T_FULLSTOP
+   18 string-statement: T_IDENTIFIER . T_COMMA
+
+    T_COMMA     shift, and go to state 55
+    T_FULLSTOP  shift, and go to state 56
+
+
+State 43
+
+   16 string-statements: string-statements string-statement .
+
+    $default  reduce using rule 16 (string-statements)
+
+
+State 44
+
+   23 forloop-statement: T_FOR T_OPAREN assignment-statement . T_FULLSTOP comparison-statement assignment-statement T_CPAREN startfor-statement statments endfor-statement
+
+    T_FULLSTOP  shift, and go to state 57
+
+
+State 45
+
+   26 assignment-statement: move-statement .
+
+    $default  reduce using rule 26 (assignment-statement)
+
+
+State 46
+
+   27 assignment-statement: add-statement .
+
+    $default  reduce using rule 27 (assignment-statement)
+
+
+State 47
+
+   28 move-statement: T_MOVE T_NUMBER T_TO T_IDENTIFIER .
+
+    $default  reduce using rule 28 (move-statement)
+
+
+State 48
+
+   29 move-statement: T_MOVE T_IDENTIFIER T_TO T_IDENTIFIER .
+
+    $default  reduce using rule 29 (move-statement)
+
+
+State 49
+
+   30 add-statement: T_ADD T_NUMBER T_TO T_IDENTIFIER .
+
+    $default  reduce using rule 30 (add-statement)
+
+
+State 50
+
+   31 add-statement: T_ADD T_IDENTIFIER T_TO T_IDENTIFIER .
+
+    $default  reduce using rule 31 (add-statement)
+
+
+State 51
+
+   22 read-identifier: T_IDENTIFIER T_COMMA .
+
+    $default  reduce using rule 22 (read-identifier)
+
+
+State 52
+
+   19 read-statement: T_READ read-identifiers T_IDENTIFIER T_FULLSTOP .
+
+    $default  reduce using rule 19 (read-statement)
+
+
+State 53
+
+   17 string-statement: T_STRING T_COMMA .
+
+    $default  reduce using rule 17 (string-statement)
+
+
+State 54
+
+   14 print-statement: T_PRINT string-statements T_STRING T_FULLSTOP .
+
+    $default  reduce using rule 14 (print-statement)
+
+
+State 55
+
+   18 string-statement: T_IDENTIFIER T_COMMA .
+
+    $default  reduce using rule 18 (string-statement)
+
+
+State 56
+
+   13 print-statement: T_PRINT string-statements T_IDENTIFIER T_FULLSTOP .
+
+    $default  reduce using rule 13 (print-statement)
+
+
+State 57
+
+   23 forloop-statement: T_FOR T_OPAREN assignment-statement T_FULLSTOP . comparison-statement assignment-statement T_CPAREN startfor-statement statments endfor-statement
+
+    T_NUMBER      shift, and go to state 58
+    T_IDENTIFIER  shift, and go to state 59
+
+    comparison-statement  go to state 60
+    num-or-identifier     go to state 61
+
+
+State 58
+
+   35 num-or-identifier: T_NUMBER .
+
+    $default  reduce using rule 35 (num-or-identifier)
+
+
+State 59
+
+   34 num-or-identifier: T_IDENTIFIER .
+
+    $default  reduce using rule 34 (num-or-identifier)
+
+
+State 60
+
+   23 forloop-statement: T_FOR T_OPAREN assignment-statement T_FULLSTOP comparison-statement . assignment-statement T_CPAREN startfor-statement statments endfor-statement
+
+    T_MOVE  shift, and go to state 12
+    T_ADD   shift, and go to state 13
+
+    assignment-statement  go to state 62
+    move-statement        go to state 45
+    add-statement         go to state 46
+
+
+State 61
+
+   32 comparison-statement: num-or-identifier . T_LESSTHAN num-or-identifier T_FULLSTOP
+   33                     | num-or-identifier . T_GREATERTHAN num-or-identifier T_FULLSTOP
+
+    T_LESSTHAN     shift, and go to state 63
+    T_GREATERTHAN  shift, and go to state 64
+
+
+State 62
+
+   23 forloop-statement: T_FOR T_OPAREN assignment-statement T_FULLSTOP comparison-statement assignment-statement . T_CPAREN startfor-statement statments endfor-statement
+
+    T_CPAREN  shift, and go to state 65
+
+
+State 63
+
+   32 comparison-statement: num-or-identifier T_LESSTHAN . num-or-identifier T_FULLSTOP
+
+    T_NUMBER      shift, and go to state 58
+    T_IDENTIFIER  shift, and go to state 59
+
+    num-or-identifier  go to state 66
+
+
+State 64
+
+   33 comparison-statement: num-or-identifier T_GREATERTHAN . num-or-identifier T_FULLSTOP
+
+    T_NUMBER      shift, and go to state 58
+    T_IDENTIFIER  shift, and go to state 59
+
+    num-or-identifier  go to state 67
+
+
+State 65
+
+   23 forloop-statement: T_FOR T_OPAREN assignment-statement T_FULLSTOP comparison-statement assignment-statement T_CPAREN . startfor-statement statments endfor-statement
+
+    T_STARTFOR  shift, and go to state 68
+
+    startfor-statement  go to state 69
+
+
+State 66
+
+   32 comparison-statement: num-or-identifier T_LESSTHAN num-or-identifier . T_FULLSTOP
+
+    T_FULLSTOP  shift, and go to state 70
+
+
+State 67
+
+   33 comparison-statement: num-or-identifier T_GREATERTHAN num-or-identifier . T_FULLSTOP
+
+    T_FULLSTOP  shift, and go to state 71
+
+
+State 68
+
+   24 startfor-statement: T_STARTFOR . T_FULLSTOP
+
+    T_FULLSTOP  shift, and go to state 72
+
+
+State 69
+
+   23 forloop-statement: T_FOR T_OPAREN assignment-statement T_FULLSTOP comparison-statement assignment-statement T_CPAREN startfor-statement . statments endfor-statement
+
+    $default  reduce using rule 5 (statments)
+
+    statments  go to state 73
+
+
+State 70
+
+   32 comparison-statement: num-or-identifier T_LESSTHAN num-or-identifier T_FULLSTOP .
+
+    $default  reduce using rule 32 (comparison-statement)
+
+
+State 71
+
+   33 comparison-statement: num-or-identifier T_GREATERTHAN num-or-identifier T_FULLSTOP .
+
+    $default  reduce using rule 33 (comparison-statement)
+
+
+State 72
+
+   24 startfor-statement: T_STARTFOR T_FULLSTOP .
+
+    $default  reduce using rule 24 (startfor-statement)
+
+
+State 73
+
+    6 statments: statments . statment
+   23 forloop-statement: T_FOR T_OPAREN assignment-statement T_FULLSTOP comparison-statement assignment-statement T_CPAREN startfor-statement statments . endfor-statement
+
+    T_MOVE    shift, and go to state 12
+    T_ADD     shift, and go to state 13
+    T_READ    shift, and go to state 14
+    T_PRINT   shift, and go to state 15
+    T_FOR     shift, and go to state 16
+    T_ENDFOR  shift, and go to state 74
+
+    statment           go to state 17
+    print-statement    go to state 18
+    read-statement     go to state 19
+    forloop-statement  go to state 20
+    endfor-statement   go to state 75
+    move-statement     go to state 21
+    add-statement      go to state 22
+
+
+State 74
+
+   25 endfor-statement: T_ENDFOR . T_FULLSTOP
+
+    T_FULLSTOP  shift, and go to state 76
+
+
+State 75
+
+   23 forloop-statement: T_FOR T_OPAREN assignment-statement T_FULLSTOP comparison-statement assignment-statement T_CPAREN startfor-statement statments endfor-statement .
+
+    $default  reduce using rule 23 (forloop-statement)
+
+
+State 76
+
+   25 endfor-statement: T_ENDFOR T_FULLSTOP .
+
+    $default  reduce using rule 25 (endfor-statement)
