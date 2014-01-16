@@ -1,6 +1,6 @@
 A Flex and Bison Parser for Basic Programming Language
 =====================
-This project is a Parser (using Bison) and Lexical (using Flex) analysis tool which will check the syntax and semantics of a basic programming language. 
+This project is a Parser (using Bison) and Lexical analysis tool (using Flex) which will check the syntax and semantics of a basic programming language. 
 - If a semantic error is found the parser will report the line number and a detailed error. 
 - If a syntax error is found the parser will report the line number and error type.
 
@@ -13,3 +13,7 @@ The file flexer.l checks for valid regular expressions. If a valid expression is
 Grammar.y
 ---------
 Verifies the regular expression tokens fit into a grammar. If the input file does not adhere to the grammar, this file reports an error.
+
+Makefile
+--------
+Just run the makefile with flex and bison installed to see what it does.
