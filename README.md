@@ -1,6 +1,6 @@
 A Flex and Bison Parser for Basic Programming Language
 =====================
-This project is a Parser (using Bison) and Lexical analysis tool (using Flex) which will check the syntax and semantics of a basic programming language. 
+This project is a parser (using Bison) and lexical analysis tool (using Flex) which will check the syntax and semantics of a basic programming language. 
 - If a semantic error is found the parser will report the line number and a detailed error. 
 - If a syntax error is found the parser will report the line number and error type.
 
